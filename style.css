@@ -286,6 +286,7 @@ header p, .header p {
   color: #fff;
   text-shadow: 0 0 5px var(--primary-glow);
 }
+@media (max-width: 768px) {
   .controls {
     flex-wrap: wrap;
     justify-content: center;
