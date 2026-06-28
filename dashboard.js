@@ -18,7 +18,17 @@ document.getElementById('btn-login').addEventListener('click', async () => {
       alert('Invalid Password!');
     }
   } catch(e) {
-    alert('Failed to connect to backend. Is the server running?');
+    if (window.location.hostname.includes('vercel.app')) {
+      alert('WARNING: You are viewing this on the live Vercel site. The backend server is not running, so image uploads will not save. Logging you in to preview the dashboard UI only.');
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      
+      // Load mock config since API is down
+      renderGrid('upper', new Array(8).fill(''));
+      renderGrid('lower', new Array(8).fill(''));
+    } else {
+      alert('Failed to connect to backend. Is the server running?');
+    }
   }
 });
 
@@ -68,6 +78,10 @@ window.uploadImage = async (type, index) => {
       alert('Upload failed: ' + data.message);
     }
   } catch(e) {
-    alert('Upload error');
+    if (window.location.hostname.includes('vercel.app')) {
+      alert('Uploads do not work on Vercel because it is a serverless environment with a read-only filesystem. Please run the project locally to actually change images!');
+    } else {
+      alert('Upload error');
+    }
   }
 };
