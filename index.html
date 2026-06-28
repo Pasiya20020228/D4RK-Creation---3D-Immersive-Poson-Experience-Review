@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poson Poya 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    
+    <!-- UI Overlay -->
+    <div id="ui-container">
+      <!-- Top Left UI Group -->
+      <div class="top-left-group">
+        <div class="header glass-panel">
+          <h1>Poson Poya 2026</h1>
+          <p>Interactive 3D Experience</p>
+        </div>
+
+        <div class="top-actions">
+          <button id="btn-toggle-dev" class="btn btn-dev-toggle">About ▼</button>
+          <a href="https://forms.gle/yn3WfMi3dA9yiAzn6" target="_blank" class="btn feedback-btn">Submit Feedback</a>
+        </div>
+        
+        <div id="dev-notice-panel" class="glass-panel hidden-panel">
+          <h3>D4RK Creation</h3>
+          <p class="subtitle">3D Immersive Poson Experience</p>
+          <div class="dev-credits">
+            <p><strong>Develop:</strong><br>H.G.P.Madhumal</p>
+            <p><strong>Visual & Support:</strong><br>T.H.T.C.Sankalpa, W.C.D.M.Lakkhana</p>
+          </div>
+          <div class="tech-stack">
+            <p><strong>Technology:</strong><br>Three.js, WebGL, Vite, Node.js</p>
+          </div>
+          <p class="branding">Dark Creation Development</p>
+        </div>
+      </div>
+      
+      <div class="controls glass-panel">
+        <button id="btn-chasing" class="btn active">Chasing</button>
+        <button id="btn-flashing" class="btn">Flashing</button>
+        <button id="btn-fading" class="btn">Fading</button>
+        <button id="btn-pulse" class="btn">Pulse</button>
+        <button id="btn-wave" class="btn">Wave</button>
+      </div>
+
+      <div class="audio-controls glass-panel">
+        <button id="btn-audio" class="btn-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-pause" style="display: none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        </button>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2rem;">
+          <span>Bakthi Gee</span>
+          <input type="range" id="volume-slider" min="0" max="100" value="100" style="width: 80px; height: 4px; accent-color: #0088ff; cursor: pointer;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Popup for Poson Story -->
+    <div id="story-modal" class="modal-overlay"> <!-- Visible on load -->
+      <div class="modal-content glass-panel">
+        <button id="btn-close-modal" class="btn-close">&times;</button>
+        <h2>The Arrival of Mahinda Thero</h2>
+        <div class="modal-body">
+          <p>On the full moon day of Poson, Arahant Mahinda Thero arrived at Mihintale, bringing the message of Buddhism to Sri Lanka. This event transformed the culture and heritage of the island forever.</p>
+          <p>පොසොන් පුර පසළොස්වක පෝදා මිහිඳු මහරහතන් වහන්සේ ලක්දිවට වැඩම කළ සේක.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Fullscreen Modal -->
+    <div id="image-modal" class="modal-overlay hidden">
+      <div class="modal-content glass-panel" style="background: transparent; box-shadow: none; border: none; max-width: 90vw;">
+        <button id="btn-close-image-modal" class="btn-close" style="top: -2rem; right: 0;">&times;</button>
+        <img id="full-image" src="" style="width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px;">
+      </div>
+    </div>
+
+    <!-- Background Audio (YouTube Player) -->
+    <div id="yt-player" style="display: none;"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

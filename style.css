@@ -1,0 +1,324 @@
+:root {
+  --primary-glow: #00ffff;
+  --bg-color: #020208;
+  --glass-bg: rgba(10, 10, 20, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #ffffff;
+  --text-muted: #a0a0b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  overflow: hidden; /* Prevent scrolling for 3D canvas */
+}
+
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 16px;
+}
+
+/* UI Container */
+#ui-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through to 3D scene */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+#ui-container > * {
+  pointer-events: auto; /* Re-enable clicks for UI elements */
+}
+
+.header, header {
+  padding: 1.5rem 2rem;
+  max-width: fit-content;
+  pointer-events: auto;
+}
+
+header h1, .header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #fff, #a0d8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.25rem;
+}
+
+header p, .header p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.controls {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 30px;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-main);
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.audio-controls {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+  border-radius: 30px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.audio-controls span {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+/* Modal */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 2, 8, 0.8);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 500px;
+  padding: 2.5rem;
+  position: relative;
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.hidden .modal-content {
+  transform: translateY(20px);
+}
+
+.btn-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-close:hover {
+  color: white;
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #ffde59; /* Subtle gold for Buddhism theme */
+}
+
+.modal-body p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  #ui-container { padding: 1rem; }
+  .top-left-group { width: 100%; align-items: center; }
+  .header { padding: 1rem; text-align: center; }
+  header h1, .header h1 { font-size: 1.5rem; }
+  
+  #dev-notice-panel {
+    width: 100%;
+    transform-origin: top center;
+  }
+
+/* Top Left UI Group */
+.top-left-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  pointer-events: none;
+}
+
+.top-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.feedback-btn {
+  background: var(--primary-glow);
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  border: none;
+}
+.feedback-btn:hover {
+  box-shadow: 0 0 12px var(--primary-glow);
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.btn-dev-toggle {
+  background: rgba(10, 10, 20, 0.8);
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  cursor: pointer;
+  border-radius: 6px;
+  backdrop-filter: blur(5px);
+  transition: background 0.2s;
+}
+.btn-dev-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#dev-notice-panel {
+  width: max-content;
+  max-width: 320px;
+  padding: 1.2rem;
+  font-size: 0.85rem;
+  transform-origin: top left;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  opacity: 1;
+  transform: scaleY(1);
+  pointer-events: auto;
+}
+
+#dev-notice-panel.hidden-panel {
+  opacity: 0;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+
+#dev-notice-panel h3 {
+  color: var(--primary-glow);
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+#dev-notice-panel .subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+}
+.dev-credits, .tech-stack {
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+}
+.branding {
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 5px var(--primary-glow);
+}
+  .controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    bottom: 5rem;
+  }
+  .audio-controls {
+    bottom: 1rem;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
