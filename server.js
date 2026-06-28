@@ -14,12 +14,12 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Serve uploads statically
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve uploads statically (fallback if not using Vite)
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, 'public/uploads/');
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
-const DATA_FILE = path.join(__dirname, 'data.json');
+const DATA_FILE = path.join(__dirname, 'public/data.json');
 
 // Ensure data file exists
 if (!fs.existsSync(DATA_FILE)) {
@@ -38,8 +38,8 @@ if (!fs.existsSync(DATA_FILE)) {
 }
 
 // Ensure uploads dir exists
-if (!fs.existsSync(path.join(__dirname, 'uploads'))) {
-  fs.mkdirSync(path.join(__dirname, 'uploads'));
+if (!fs.existsSync(path.join(__dirname, 'public/uploads'))) {
+  fs.mkdirSync(path.join(__dirname, 'public/uploads'), { recursive: true });
 }
 
 // Login API
