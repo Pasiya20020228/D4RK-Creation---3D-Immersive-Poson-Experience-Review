@@ -52,9 +52,16 @@ export async function createThorana(scene) {
   let panelImages = { upperPanels: [], lowerPanels: [] };
   try {
     const res = await fetch('/api/config');
+    if (!res.ok) throw new Error("API failed");
     panelImages = await res.json();
   } catch(e) {
-    console.log("Could not load panel config (Backend might not be running)");
+    console.log("Backend not running (Vercel). Falling back to static data.json");
+    try {
+      const res = await fetch('/data.json');
+      panelImages = await res.json();
+    } catch(e2) {
+      console.log("Could not load fallback data.json");
+    }
   }
 
   const textureLoader = new THREE.TextureLoader();
