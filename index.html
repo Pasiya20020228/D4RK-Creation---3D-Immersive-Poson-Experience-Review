@@ -19,24 +19,6 @@
           <h1>Poson Poya 2026</h1>
           <p>Interactive 3D Experience</p>
         </div>
-
-        <div class="top-actions">
-          <button id="btn-toggle-dev" class="btn btn-dev-toggle">About ▼</button>
-          <a href="https://forms.gle/yn3WfMi3dA9yiAzn6" target="_blank" class="btn feedback-btn">Submit Feedback</a>
-        </div>
-        
-        <div id="dev-notice-panel" class="glass-panel hidden-panel">
-          <h3>D4RK Creation</h3>
-          <p class="subtitle">3D Immersive Poson Experience</p>
-          <div class="dev-credits">
-            <p><strong>Develop:</strong><br>H.G.P.Madhumal</p>
-            <p><strong>Visual & Support:</strong><br>T.H.T.C.Sankalpa, W.C.D.M.Lakkhana</p>
-          </div>
-          <div class="tech-stack">
-            <p><strong>Technology:</strong><br>Three.js, WebGL, Vite, Node.js</p>
-          </div>
-          <p class="branding">Dark Creation Development</p>
-        </div>
       </div>
       
       <div class="controls glass-panel">
@@ -55,6 +37,33 @@
         <div style="display: flex; flex-direction: column; align-items: center; gap: 0.2rem;">
           <span>Bakthi Gee</span>
           <input type="range" id="volume-slider" min="0" max="100" value="100" style="width: 80px; height: 4px; accent-color: #0088ff; cursor: pointer;">
+        </div>
+      </div>
+      
+      <!-- Bottom Left Developer Button -->
+      <button id="btn-open-dev" class="btn btn-dev-trigger">Developer Notice</button>
+    </div>
+
+    <!-- Developer Notice Modal -->
+    <div id="dev-modal" class="modal-overlay hidden">
+      <div class="modal-content glass-panel" style="text-align: center;">
+        <button id="btn-close-dev" class="btn-close">&times;</button>
+        <div class="modal-body">
+          <h3 style="color: var(--primary-glow); font-size: 1.5rem; margin-bottom: 0.5rem;">D4RK Creation</h3>
+          <p class="subtitle" style="color: var(--text-muted); margin-bottom: 1.5rem;">3D Immersive Poson Experience Review</p>
+          
+          <div style="margin-bottom: 1.5rem; line-height: 1.6;">
+            <p><strong>Develop:</strong><br>H.G.P.Madhumal</p>
+            <p style="margin-top: 1rem;"><strong>Visual & Support:</strong><br>T.H.T.C.Sankalpa, W.C.D.M.Lakkhana</p>
+          </div>
+          
+          <div style="margin-bottom: 2rem;">
+            <p><strong>Technology:</strong><br>Three.js, WebGL, Vite, Node.js</p>
+          </div>
+          
+          <p style="font-weight: bold; font-size: 0.9rem; text-shadow: 0 0 5px var(--primary-glow); margin-bottom: 1.5rem;">Dark Creation Development</p>
+          
+          <a href="https://forms.gle/yn3WfMi3dA9yiAzn6" target="_blank" class="btn feedback-btn" style="display: inline-block;">Submit Feedback</a>
         </div>
       </div>
     </div>

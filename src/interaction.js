@@ -74,12 +74,17 @@ export function setupInteractions(camera, scene, thoranaState) {
     });
   };
 
-  // Developer Notice Toggle
-  const devNoticePanel = document.getElementById('dev-notice-panel');
-  const btnToggleDev = document.getElementById('btn-toggle-dev');
-  btnToggleDev.addEventListener('click', () => {
-    devNoticePanel.classList.toggle('hidden-panel');
-    btnToggleDev.innerHTML = devNoticePanel.classList.contains('hidden-panel') ? '&gt;' : '&lt;';
+  // Developer Notice Modal
+  const devModal = document.getElementById('dev-modal');
+  const btnOpenDev = document.getElementById('btn-open-dev');
+  const btnCloseDev = document.getElementById('btn-close-dev');
+
+  btnOpenDev.addEventListener('click', () => {
+    devModal.classList.remove('hidden');
+  });
+
+  btnCloseDev.addEventListener('click', () => {
+    devModal.classList.add('hidden');
   });
 
   // Load YouTube API script dynamically
